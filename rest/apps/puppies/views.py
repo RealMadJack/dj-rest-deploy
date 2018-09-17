@@ -8,12 +8,14 @@ from .serializers import PuppySerializer
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_puppy(request, pk):
+    """
+    TODO: Rewrite to generic
+    """
     try:
         puppy = Puppy.objects.get(pk=pk)
     except Puppy.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    # get details of a single puppy
     if request.method == 'GET':
         serializer = PuppySerializer(puppy)
         return Response(serializer.data)
@@ -31,12 +33,13 @@ def get_delete_update_puppy(request, pk):
 
 @api_view(['GET', 'POST'])
 def get_post_puppies(request):
-    # get all puppies
+    """
+    TODO: Rewrite to generic
+    """
     if request.method == 'GET':
         puppies = Puppy.objects.all()
         serializer = PuppySerializer(puppies, many=True)
         return Response(serializer.data)
-    # insert new method for a puppy
     elif request.method == 'POST':
         data = {
             'name': request.data.get('name'),

@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest.apps.puppies',
+    'rest.apps.geo'
     'rest_framework',
 ]
 

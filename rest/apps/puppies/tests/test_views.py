@@ -22,9 +22,7 @@ class GetAllPuppiesTest(TestCase):
         Puppy.objects.create(name='Muffin', age=1, breed='Gradane', color='Brown')
 
     def test_get_all_puppies(self):
-        # api resp
         response = client.get(reverse('puppies:get_post_puppies'))
-        # get db data
         puppies = Puppy.objects.all()
         serializer = PuppySerializer(puppies, many=True)
         self.assertEqual(response.data, serializer.data)
