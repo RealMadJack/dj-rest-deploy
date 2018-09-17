@@ -16,8 +16,7 @@ import os
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 2  # (django_rest/rest/settings.py - 2 = django_rest)
-print(ROOT_DIR)
-APP_DIRS = ROOT_DIR.path('django_rest')
+APPS_DIR = ROOT_DIR.path('rest')
 
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
@@ -62,7 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest.apps.puppies',
-    'rest.apps.geo'
+    'rest.apps.geo',
     'rest_framework',
 ]
 
@@ -81,7 +80,9 @@ ROOT_URLCONF = 'rest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            str(APPS_DIR.path('templates')),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -155,3 +156,9 @@ STATIC_URL = '/static/'
 
 # TESTING
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+# Google Maps API Key
+GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
+
+# IPStack API KEY
+IP_STACK = env('IP_STACK')
