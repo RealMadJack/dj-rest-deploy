@@ -12,6 +12,29 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+# Environ
+import environ
+
+ROOT_DIR = environ.Path(__file__) - 2  # (django_rest/rest/settings.py - 2 = django_rest)
+print(ROOT_DIR)
+APP_DIRS = ROOT_DIR.path('django_rest')
+
+# Load operating system environment variables and then prepare to use them
+env = environ.Env()
+
+# .env file, should load only in development environment
+READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=True)
+
+if READ_DOT_ENV_FILE:
+    # Operating System Environment variables have precedence over variables defined in the .env file,
+    # that is to say variables from the .env files will only be used if not defined
+    # as environment variables.
+    env_file = str(ROOT_DIR.path('.env'))
+    print('Loading : {}'.format(env_file))
+    env.read_env(env_file)
+    print('The .env file has been loaded. See base.py for more information')
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -86,11 +109,9 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db('DATABASE_URL', default='postgres:///django_rest'),
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 # Password validation
@@ -117,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
