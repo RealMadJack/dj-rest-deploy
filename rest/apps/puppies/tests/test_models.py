@@ -2,14 +2,12 @@ from django.test import TestCase
 from ..models import Puppy
 
 
-class PuppyTestCase(TestCase):
+class PuppyTest(TestCase):
     """Test module for Puppy module"""
 
     def setUp(self):
-        Puppy.objects.create(
-            name='Diana', age=1, breed='Pug', color='Apricot')
-        Puppy.objects.create(
-            name='Elizabeth', age=3, breed='Beagle', color='Orange Black')
+        Puppy.objects.create(name='Diana', age=1, breed='Pug', color='Apricot')
+        Puppy.objects.create(name='Elizabeth', age=3, breed='Beagle', color='Orange Black')
 
     def test_puppy_breed(self):
         puppy_diana = Puppy.objects.get(name='Diana')
