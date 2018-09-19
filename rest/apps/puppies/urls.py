@@ -7,12 +7,12 @@ app_name = PuppiesConfig.name
 
 urlpatterns = [
     path(
-        'api/v1/puppies/<int:pk>',
+        'puppies/<int:pk>',
         view=views.get_delete_update_puppy,
         name='get_delete_update_puppy'
     ),
     path(
-        'api/v1/puppies/',
+        'puppies/',
         view=views.get_post_puppies,
         name='get_post_puppies'
     ),

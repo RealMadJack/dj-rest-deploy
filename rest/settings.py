@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'rest.apps.puppies',
     'rest.apps.geo',
     'rest.apps.redus',
+    'rest.apps.culery',
 
     'rest_framework',
     'debug_toolbar',
